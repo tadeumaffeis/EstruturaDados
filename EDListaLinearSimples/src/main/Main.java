@@ -25,23 +25,32 @@ public class Main {
         ListaLinearSimples list = new ListaLinearSimples();
         Scanner in = new Scanner(System.in);
         int id = 0;
-        String name;
-        String email;
-        
+        String name = "";
+        String email = "";
+
         for (; id >= 0;) {
             System.out.print("informations: ");
             id = in.nextInt();
             name = in.next();
             email = in.next();
-            
+
             if (id < 0) {
                 break;
             }
-            
-            list.add(new Node(id, new Nothing(id,name,email)));
+
+            //list.add(new Node(id + "", new Nothing(id, name, email)));
+            list.insertPosN(1, new Node(id + "", new Nothing(id, name, email)));
         }
+        System.out.println("\n\n");
         list.show();
-        
+        System.out.println("\n\n");
+        list.insertPosN(3, new Node(id + "", new Nothing(id, name, email)));
+        System.out.println("\n\n");
+        list.show();
+        list.insertPosN(2, new Node(id + "", new Nothing(id, name, email)));
+        System.out.println("\n\n");
+        list.show();
+        /*
         System.out.println("Pesquisar n-esimo. Informe a posicao: ");
         int position = in.nextInt();
         
@@ -50,6 +59,29 @@ public class Main {
         
         System.out.println("Node: " + searchedNodeClone.getValue());
         System.out.println("Node: " + searchedNodeInterface.getValue());
+         */
+ /*
+        System.out.println("Removendo o primeiro no da lista: ");
+        Node nodeRet = list.pop();
+        if (nodeRet != null) {
+            System.out.println("No removido: " + nodeRet.getId() + " " + nodeRet.getValue());
+        }
+        list.show();
+        System.out.println("\n\n\n");
+
+        nodeRet = list.pop();
+        if (nodeRet != null) {
+            System.out.println("No removido: " + nodeRet.getId() + " " + nodeRet.getValue());
+        }
+        Node aux = list.searchContent("2");
+        if (aux != null) {
+            System.out.println("\nSearch content: 2 -> " + aux.getValue().toString());
+        } else {
+            System.out.println("\nContent is NULL\n\n");
+        }
+         */
+        System.out.println("\n\n");
+        list.show();
     }
 
 }

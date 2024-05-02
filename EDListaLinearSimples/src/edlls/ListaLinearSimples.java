@@ -19,6 +19,29 @@ public class ListaLinearSimples {
         this.bottom = null;
         this.size = 0;
     }
+    
+    public void insertPosN(long pos, Node node)
+    {
+        if (this.empty() && pos != 1)
+        {
+            return; // exceção
+        }
+        if (pos > this.length() && pos != 1)
+        {
+            return; 
+        }
+        if (pos == 1)
+        {
+            this.add(node);
+            return;
+        }
+        
+        Node nodePrev = this.searchPos( pos -1);
+        Node nodePos = nodePrev.getNext();
+        node.setNext(nodePos);
+        nodePrev.setNext(node);
+        this.addSize();
+    }
 
     private boolean empty() {
         return (this.top == null && this.bottom == null);
@@ -45,48 +68,127 @@ public class ListaLinearSimples {
         }
         this.addSize();
     }
-    
-    private void addSize()
-    {
-        this.size++;
-    }
-    
-    private long length()
-    {
-        return this.size;
-    }
-    
-    public Node searchWithClone(long position)
-    {
-        if (this.empty() || position > this.length())
-        {
+
+    public Node remove() {
+        Node retNode = null;
+        Node aux = null;
+
+        if (this.empty()) {
             return null;
         }
-        
-        Node aux = this.top;
-        for (int indx = 1; position != indx && aux != null; indx++)
-        {
-            aux = aux.getNext();
+
+        if (this.length() <= 1) {
+            retNode = this.top;
+            this.top = this.bottom = null;
+        } else {
+            retNode = this.top;
+            aux = retNode.getNext();
+            retNode.setNext(null);
+            this.top = aux;
         }
-        
-        Node retNode = new Node(aux.getId(),aux.getValue());
-        
+
+        this.decSize();
+
         return retNode;
     }
-    
-    public NodeValue searchWithInterface(long position)
-    {
-        if (this.empty() || position > this.length())
-        {
+
+    public Node pop() {
+        Node retNode = null;
+        Node aux = null;
+
+        if (this.empty()) {
             return null;
         }
-        
+
+        if (this.length() <= 1) {
+            retNode = this.top;
+            this.top = this.bottom = null;
+        } else {
+            retNode = this.bottom;
+            aux = this.searchPos(this.length() - 1);
+            aux.setNext(null);
+            this.bottom = aux;
+        }
+
+        this.decSize();
+
+        return retNode;
+    }
+
+    public void clear() {
+        while (!this.empty()) {
+            this.pop();
+        }
+    }
+
+    private void addSize() {
+        this.size++;
+    }
+
+    private void decSize() {
+        this.size--;
+    }
+
+    private long length() {
+        return this.size;
+    }
+
+    public Node searchPosWithClone(long position) {
+        if (this.empty() || position > this.length()) {
+            return null;
+        }
+
         Node aux = this.top;
-        for (int indx = 1; position != indx && aux != null; indx++)
-        {
+        for (int indx = 1; position != indx && aux != null; indx++) {
+            aux = aux.getNext();
+        }
+
+        Node retNode = new Node(aux.getId(), aux.getValue());
+
+        return retNode;
+    }
+
+    public NodeValue searchPosWithInterface(long position) {
+        if (this.empty() || position > this.length()) {
+            return null;
+        }
+
+        Node aux = this.top;
+        for (int indx = 1; position != indx && aux != null; indx++) {
             aux = aux.getNext();
         }
         return (NodeValue) aux;
+    }
+
+    private Node searchPos(long position) {
+        if (this.empty() || position > this.length()) {
+            return null;
+        }
+
+        Node aux = this.top;
+        for (int indx = 1; position != indx && aux != null; indx++) {
+            aux = aux.getNext();
+        }
+        return aux;
+    }
+    
+    public Node searchContent(String key)
+    {
+        if (this.empty())
+        {
+            return null;
+        }
+        Node aux = this.top;
+        while (aux != null)
+        {
+            if (key.equals(aux.getId()))
+            {
+                break;
+            }
+            aux = aux.getNext();
+        }
+        
+        return aux;
     }
 
     public void show() {
@@ -95,6 +197,8 @@ public class ListaLinearSimples {
             System.out.print(" --> " + aux.getValue().toString());
             aux = aux.getNext();
         }
-        System.out.print(" --> " + aux.getValue());
+        if (aux != null) {
+            System.out.print(" --> " + aux.getValue());
+        }
     }
 }

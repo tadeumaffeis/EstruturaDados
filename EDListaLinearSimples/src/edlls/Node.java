@@ -9,27 +9,27 @@ package edlls;
  * @author tadeu.maffeis
  */
 public class Node implements NodeValue {
-    private int id;
+    private String id;
     private Object value;
     private Node next;
 
     public Node() {
-        this.id = 0;
+        this.id = "";
         this.next = null;
         this.value = null;
     }
     
-    public Node(int id, Object value) {
+    public Node(String id, Object value) {
         this.id = id;
         this.value = value;
         this.next = null;
     }
 
-    public int getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(String id) {
         this.id = id;
     }
 
@@ -48,5 +48,4 @@ public class Node implements NodeValue {
     public void setNext(Node next) {
         this.next = next;
     }
-
 }
