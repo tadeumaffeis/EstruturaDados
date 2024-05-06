@@ -50,6 +50,12 @@ public class Main {
         list.insertPosN(2, new Node(id + "", new Nothing(id, name, email)));
         System.out.println("\n\n");
         list.show();
+        System.out.println("\n\nRemovendo node 2\n\n");
+        list.removePosN(2);
+        list.show();
+        System.out.println("\n\nRemovendo nodew 3\n\n");
+        list.removePosN(3);
+        list.show();
         /*
         System.out.println("Pesquisar n-esimo. Informe a posicao: ");
         int position = in.nextInt();

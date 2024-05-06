@@ -19,28 +19,61 @@ public class ListaLinearSimples {
         this.bottom = null;
         this.size = 0;
     }
-    
-    public void insertPosN(long pos, Node node)
-    {
-        if (this.empty() && pos != 1)
-        {
+
+    public void insertPosN(long pos, Node node) {
+        if (this.empty() && pos != 1) {
             return; // exceção
         }
-        if (pos > this.length() && pos != 1)
-        {
-            return; 
+        if (pos > this.length() && pos != 1) {
+            return;
         }
-        if (pos == 1)
-        {
+        if (pos == 1) {
             this.add(node);
             return;
         }
-        
-        Node nodePrev = this.searchPos( pos -1);
+
+        Node nodePrev = this.searchPos(pos - 1);
         Node nodePos = nodePrev.getNext();
         node.setNext(nodePos);
         nodePrev.setNext(node);
         this.addSize();
+    }
+
+    public void insertInOrd(Node node)
+    {
+        
+    }
+    
+    public Node removePosN(long pos) {
+        if (this.empty()) {
+            return null;
+        }
+
+        if (pos == 1) {
+            return this.remove();
+        }
+
+        if (this.length() == pos) {
+            return this.pop();
+        }
+        // remover pos N com size > que 1 e 1 < pos < size
+        if (pos != 1 && this.length() <= 1) {
+            return null;
+        }
+
+        if (pos > this.length()) {
+            return null;
+        }
+
+        Node ant = this.searchPos(pos - 1);
+        Node aux = ant.getNext();
+
+        ant.setNext(aux.getNext());
+        aux.setNext(null);
+
+        this.decSize();
+        
+        return aux;
     }
 
     private boolean empty() {
@@ -171,23 +204,19 @@ public class ListaLinearSimples {
         }
         return aux;
     }
-    
-    public Node searchContent(String key)
-    {
-        if (this.empty())
-        {
+
+    public Node searchContent(String key) {
+        if (this.empty()) {
             return null;
         }
         Node aux = this.top;
-        while (aux != null)
-        {
-            if (key.equals(aux.getId()))
-            {
+        while (aux != null) {
+            if (key.equals(aux.getId())) {
                 break;
             }
             aux = aux.getNext();
         }
-        
+
         return aux;
     }
 
