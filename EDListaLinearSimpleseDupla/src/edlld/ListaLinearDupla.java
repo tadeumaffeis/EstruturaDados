@@ -45,16 +45,36 @@ public class ListaLinearDupla {
 
         this.addSize();
     }
+    
+    public Node search(String id)
+    {
+        Node retNode = this.top;
+        while (retNode != null && !retNode.getId().equals(id))
+        {
+            retNode = retNode.getNext();
+        }
+        return retNode; 
+    }
 
     public void append(Node node) {
+        if (this.empty()) {
+            this.top = node;
+            this.bottom = node;
+        } else {
+            Node aux2 = this.bottom;
+            node.setPrev(aux2);
+            this.bottom = node;
+            aux2.setNext(this.bottom);
+        }
 
+        this.addSize();
     }
 
     public void show() {
-        Node aux = this.bottom;
+        Node aux = this.top;
         while (aux != null) {
             System.out.println("\n -> " + aux.getValue().toString());
-            aux = aux.getPrev();
+            aux = aux.getNext();
         }
     }
 }
