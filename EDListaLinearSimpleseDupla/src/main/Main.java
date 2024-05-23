@@ -40,15 +40,21 @@ public class Main {
 
             //list.add(new Node(id + "", new Nothing(id, name, email)));
             //list.insertPosN(1, new Node(id + "", new Nothing(id, name, email)));
-            list.insert(new Node(id + "", new Integer(id)));
+            //list.insert(new Node(id + "", new Integer(id)));
             list.append(new Node(id + "", new Integer(id)));
         }
         
-        System.out.print("Pesquisar Id. Informe o Id: ");
-        id = in.nextInt();
-        Node nodeRet = list.search(id + "");
-        String sret = nodeRet == null ? "*NULL*" : nodeRet.getId() + " - " + nodeRet.getValue().toString();
-        System.out.println("\nRetorno -> " + sret);
+        while (!list.empty())
+        {
+            Node aux = list.pop();
+            System.out.println("Node value: " + aux.getValue().toString());
+        }
+        
+        //System.out.print("Pesquisar Id. Informe o Id: ");
+        //id = in.nextInt();
+        //Node nodeRet = list.search(id + "");
+        //String sret = nodeRet == null ? "*NULL*" : nodeRet.getId() + " - " + nodeRet.getValue().toString();
+        //System.out.println("\nRetorno -> " + sret);
         /*
         System.out.println("\n\n");
         list.show();

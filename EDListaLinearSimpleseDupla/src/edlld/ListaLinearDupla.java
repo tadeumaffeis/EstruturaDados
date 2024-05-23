@@ -45,15 +45,13 @@ public class ListaLinearDupla {
 
         this.addSize();
     }
-    
-    public Node search(String id)
-    {
+
+    public Node search(String id) {
         Node retNode = this.top;
-        while (retNode != null && !retNode.getId().equals(id))
-        {
+        while (retNode != null && !retNode.getId().equals(id)) {
             retNode = retNode.getNext();
         }
-        return retNode; 
+        return retNode;
     }
 
     public void append(Node node) {
@@ -66,8 +64,51 @@ public class ListaLinearDupla {
             this.bottom = node;
             aux2.setNext(this.bottom);
         }
-
         this.addSize();
+    }
+
+    public Node remove() {
+        if (this.empty())
+        {
+            return null;
+        }
+        Node newTop = null;
+        Node aux = this.top;
+        this.top = aux.getNext();
+        aux.setNext(null);
+        newTop = this.top;
+        if (newTop != null)
+        {
+            newTop.setPrev(null);
+        }
+        else 
+        {
+            this.bottom = this.top;
+        }
+        this.decSize();
+        return aux;
+    }
+
+    public Node pop() {
+        if (this.empty())
+        {
+            return null;
+        }
+        Node aux = this.bottom;
+        Node newBottom = null;
+        this.bottom = aux.getPrev();
+        if (this.bottom != null)
+        {
+            newBottom = this.bottom;
+            newBottom.setNext(null);
+            aux.setPrev(null);
+        }
+        else
+        {
+            this.top = this.bottom;
+        }
+        this.decSize();
+        return aux;
     }
 
     public void show() {
