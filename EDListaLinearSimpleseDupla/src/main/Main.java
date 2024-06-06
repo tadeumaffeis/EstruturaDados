@@ -44,11 +44,22 @@ public class Main {
             list.append(new Node(id + "", new Integer(id)));
         }
         
-        while (!list.empty())
-        {
-            Node aux = list.pop();
-            System.out.println("Node value: " + aux.getValue().toString());
-        }
+        ListaLinearDupla lld = list.sort(false);
+        
+        lld.show();
+        
+        //Object[] array = list.invArray();
+        
+        //for (int i=0; i < array.length; i++)
+        //{
+        //    System.out.println("[" + array[i] + "]" );
+        //}
+        
+        //while (!list.empty())
+        //{
+        //    Node aux = list.pop();
+         //   System.out.println("Node value: " + aux.getValue().toString());
+        //}
         
         //System.out.print("Pesquisar Id. Informe o Id: ");
         //id = in.nextInt();
