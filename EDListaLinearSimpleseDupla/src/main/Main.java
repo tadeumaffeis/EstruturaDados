@@ -28,20 +28,20 @@ public class Main {
         String name = "";
         String email = "";
 
-        for (; id >= 0;) {
+        for (; sid.compareTo("-1") != 0;) {
             System.out.print("informations: ");
-            id = in.nextInt();
+            sid = in.next();
             name = in.next();
             email = in.next();
 
-            if (id < 0) {
+            if (sid.compareTo("-1") == 0) {
                 break;
             }
 
             //list.add(new Node(id + "", new Nothing(id, name, email)));
             //list.insertPosN(1, new Node(id + "", new Nothing(id, name, email)));
             //list.insert(new Node(id + "", new Integer(id)));
-            list.append(new Node(id + "", new Integer(id)));
+            list.append(new Node(sid + "", new Integer(id)));
         }
         
         ListaLinearDupla lld = list.sort(false);
