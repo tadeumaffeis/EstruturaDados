@@ -4,7 +4,6 @@
  */
 package edpilha;
 
-
 /**
  *
  * @author tadeu.maffeis
@@ -104,36 +103,29 @@ public class ListaLinearDupla {
         nodePrev.setNext(node);
         this.addSize();
     }
-    
-    private void insertInOrd(Node node)
-    {
-        if (empty())
-        {
+
+    private void insertInOrd(Node node) {
+        if (empty()) {
             this.insert(node);
             return;
         }
-        
+
         Node aux = this.top;
-        
-        while (aux != null && aux.getId().compareTo(node.getId()) < 0)
-        {
+
+        while (aux != null && aux.getId().compareTo(node.getId()) < 0) {
             aux = aux.getNext();
         }
-        
-        if (aux == null)
-        {
+
+        if (aux == null) {
             this.append(node);
             return;
         }
-        
+
         aux = aux.getPrev();
-        
-        if (aux == null)
-        {
+
+        if (aux == null) {
             this.append(node);
-        }
-        else
-        {
+        } else {
             node.setNext(aux.getNext());
             node.getNext().setPrev(node);
             node.setPrev(aux);
@@ -182,29 +174,23 @@ public class ListaLinearDupla {
 
         return array;
     }
-    
-    public ListaLinearDupla sort(boolean criteria)
-    {
-        if (empty())
-        {
+
+    public ListaLinearDupla sort(boolean criteria) {
+        if (empty()) {
             return null;
         }
-        
+
         ListaLinearDupla lld = new ListaLinearDupla();
         Node aux = this.top;
-        while (aux != null)
-        {
+        while (aux != null) {
             Node node = new Node();
             node.setValue(aux.getValue());
             lld.insertInOrd(node);
         }
-        
-        if (criteria)
-        {
+
+        if (criteria) {
             return lld;
-        }
-        else
-        {
+        } else {
             ListaLinearDupla lld2 = new ListaLinearDupla();
             lld2.insert(lld.pop());
             return lld2;
@@ -217,5 +203,18 @@ public class ListaLinearDupla {
             System.out.println("\n -> " + aux.getValue().toString());
             aux = aux.getNext();
         }
+    }
+
+    public String toString() {
+        Node aux = this.top;
+        StringBuilder sb = new StringBuilder();
+        while (aux != null) {
+            int i = (int)aux.getValue();
+            String s = ((char)i) + "";
+            sb.append(s);
+            aux = aux.getNext();
+        }
+        
+        return sb.toString();
     }
 }
