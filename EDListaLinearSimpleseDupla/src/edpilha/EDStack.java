@@ -37,4 +37,9 @@ public class EDStack {
     {
         return stack.toString();
     }
+    
+    public Node peek() 
+    {
+        return stack.peek();
+    }
 }

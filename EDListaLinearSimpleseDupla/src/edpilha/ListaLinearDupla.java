@@ -151,6 +151,15 @@ public class ListaLinearDupla {
         this.decSize();
         return aux;
     }
+    
+    public Node peek()
+    {
+        Node node = new Node();
+        node.setId(this.bottom.getId());
+        node.setValue(this.bottom.getValue());
+        
+        return node;
+    }
 
     private Node searchPos(long position) {
         if (this.empty() || position > this.size) {
