@@ -89,7 +89,9 @@ public class Main {
         String sExp = in.next();
 
         if (BalancedExpression.verify(sExp)) {
-            System.out.println("Expressao pos-fixa: " + (new Infix2Postfix()).convert2Posfix(sExp));
+            String posFixStr = (new Infix2Postfix()).convert2Posfix(sExp);
+            System.out.println("Expressao pos-fixa: " + posFixStr);
+            System.out.println("\nResultao: " + (new EvalPostFix()).eval(posFixStr));
         }else
         {
             System.out.println("Expressao incorreta"); 
@@ -117,6 +119,44 @@ class BalancedExpression {
         return pilha.empty();
     }
 }
+
+class EvalPostFix {
+    public int eval(String expressao) {
+         EDStack pilha = new EDStack();
+
+        for (char c : expressao.toCharArray()) {
+            if (Character.isDigit(c)) {
+                pilha.push(new Node(c + "", (int) (c - '0')));
+            } else {
+                if (pilha.empty())
+                {
+                    continue;
+                }
+                int valor2 = (int)pilha.pop().getValue();
+                int valor1 = (int)pilha.pop().getValue();
+                switch (c) {
+                    case '+':
+                        pilha.push(new Node(c + "+", valor1 + valor2));
+                        break;
+                    case '-':
+                        pilha.push(new Node(c + "-", valor1 - valor2));
+                        break;
+                    case '*':
+                        pilha.push(new Node(c + "*", valor1 * valor2));
+                        break;
+                    case '/':
+                        pilha.push(new Node(c + "/", valor1 / valor2));
+                        break;
+                }
+            }
+        }
+
+        return (int)pilha.pop().getValue();
+    }
+
+}
+
+
 
 class Infix2Postfix {
 
