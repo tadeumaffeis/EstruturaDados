@@ -4,8 +4,9 @@
  */
 package main;
 
+import edfila.EDQueue;
 import edpilha.EDStack;
-import edpilha.Node;
+import edfila.Node;
 import java.util.Scanner;
 
 public class Main {
@@ -82,6 +83,12 @@ public class Main {
         } else {
             System.out.println("\nExpressão incorreta");
         }
+        
+        /**
+         * Utilização de Pilha
+         */
+ /*
+        
          */
         Scanner in = new Scanner(System.in);
 
@@ -92,10 +99,57 @@ public class Main {
             String posFixStr = (new Infix2Postfix()).convert2Posfix(sExp);
             System.out.println("Expressao pos-fixa: " + posFixStr);
             System.out.println("\nResultao: " + (new EvalPostFix()).eval(posFixStr));
-        }else
-        {
-            System.out.println("Expressao incorreta"); 
+        } else {
+            System.out.println("Expressao incorreta");
         }
+
+        /*
+        EDQueue fila = new EDQueue();
+        EDStack pilha = new EDStack();
+        Scanner in = new Scanner(System.in);
+
+        System.out.println("\nInforme a sequencia de caracteres: ");
+        String buffer = in.next();
+
+        for (char c : buffer.toCharArray()) {
+            fila.enqueue(new Node(c + "", (int) c));
+            pilha.push(new edpilha.Node(c + "", (int) c));
+        }
+
+        System.out.println("\nFila Str: " + fila.toString());
+        System.out.println("\nPilha Str: " + pilha.toString());
+
+        System.out.println("\n");
+
+        for (; !fila.empty();) {
+            System.out.print("+" + (char) ((int) fila.dequeue().getValue()));
+        }
+
+        System.out.println("\n");
+
+        for (; !pilha.empty();) {
+            System.out.print("-" + (char) ((int) pilha.pop().getValue()));
+        }
+         */
+    }
+}
+
+class BalancedExpressionWithQueue {
+    public static boolean verify(EDQueue expressao) {
+        EDStack pilha = new EDStack();
+        for (; !expressao.empty();) {
+            char c = (char) expressao.remove().getValue();
+            if (c == '(' || c == '{' || c == '[') {
+                pilha.push(new edpilha.Node(c + "", (int) c));
+            } else if (c == ')' && (pilha.empty() || (char) ((int) pilha.pop().getValue()) != '(')) {
+                return false;
+            } else if (c == '}' && (pilha.empty() || (char) ((int) pilha.pop().getValue()) != '{')) {
+                return false;
+            } else if (c == ']' && (pilha.empty() || (char) ((int) pilha.pop().getValue()) != '[')) {
+                return false;
+            }
+        }       
+        return pilha.empty();
     }
 }
 
@@ -121,19 +175,19 @@ class BalancedExpression {
 }
 
 class EvalPostFix {
+
     public int eval(String expressao) {
-         EDStack pilha = new EDStack();
+        EDStack pilha = new EDStack();
 
         for (char c : expressao.toCharArray()) {
             if (Character.isDigit(c)) {
                 pilha.push(new Node(c + "", (int) (c - '0')));
             } else {
-                if (pilha.empty())
-                {
+                if (pilha.empty()) {
                     continue;
                 }
-                int valor2 = (int)pilha.pop().getValue();
-                int valor1 = (int)pilha.pop().getValue();
+                int valor2 = (int) pilha.pop().getValue();
+                int valor1 = (int) pilha.pop().getValue();
                 switch (c) {
                     case '+':
                         pilha.push(new Node(c + "+", valor1 + valor2));
@@ -151,12 +205,10 @@ class EvalPostFix {
             }
         }
 
-        return (int)pilha.pop().getValue();
+        return (int) pilha.pop().getValue();
     }
 
 }
-
-
 
 class Infix2Postfix {
 
@@ -174,7 +226,6 @@ class Infix2Postfix {
         return -1;
     }
 
-    /*
     public String convert2Posfix(String expressao) {
         StringBuilder result = new StringBuilder();
         EDStack stack = new EDStack();
@@ -203,7 +254,8 @@ class Infix2Postfix {
 
         return result.toString();
     }
-*/
+
+    /*
     //public static void main(String[] args) {
     //    String expressao = "a+b*(c^d-e)^(f+g*h)-i";
     //    System.out.println("Expressão pós-fixa: " + converteParaPosfixa(expressao));
@@ -219,12 +271,12 @@ class Infix2Postfix {
                 stack.push(new Node(c + "", (int) c));
             } else if (c == ')') {
                 while (!stack.empty() && (char) ((int) stack.peek().getValue()) != '(') {
-                    result.push(new Node(c+"", stack.pop().getValue()));
+                    result.push(new Node(c + "", stack.pop().getValue()));
                 }
                 stack.pop();
             } else {
                 while (!stack.empty() && precedence(c) <= precedence((char) ((int) stack.peek().getValue()))) {
-                    result.push(new Node(c+"", stack.pop().getValue()));
+                    result.push(new Node(c + "", stack.pop().getValue()));
                 }
                 stack.push(new Node(c + "", (int) c));
             }
@@ -238,3 +290,4 @@ class Infix2Postfix {
         return result.toString();
     }
 }
+     */
