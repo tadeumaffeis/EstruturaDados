@@ -41,7 +41,7 @@ public class EDTree<T> {
 
     public long getHeight() {
         int retValue = 0;
-        for (int i = 0; Math.pow(2.0, (double) i) - 1 <= this.size; i++) {
+        for (int i = 0; Math.pow(2.0, (double) i) < this.size; i++) {
             retValue = i;
         }
         return retValue + 1;
@@ -117,4 +117,39 @@ public class EDTree<T> {
         showSubTreeToString(root.getRightNode(), level + 1);
         System.out.print("}");
     }
+
+    public void showLeftRight() {
+        TreeNode<T> aux = this.getRoot();
+        StringBuilder sb = new StringBuilder();
+        sb.repeat(' ', this.getSpaces(1));
+        System.out.print(sb.toString());
+        System.out.print(this.getRoot().getValue());
+        System.out.println("\n\n");
+        for (int i = 1; i < this.getHeight(); i++) {
+            showSubTreeLeftRight(root.getLeftNode(), i, 1);
+            showSubTreeLeftRight(root.getRightNode(), i, 1);
+        }
+    }
+
+    private void showSubTreeLeftRight(TreeNode<T> root, int height, int index) {
+        if (root == null) {
+            return;
+        }
+        if (height >= index) {
+            StringBuilder sb = new StringBuilder();
+            sb.repeat(' ', this.getSpaces(height));
+            System.out.print(sb.toString());
+            System.out.print(root.getValue());
+        } else {
+            showSubTreeLeftRight(root.getLeftNode(), height + 1, index);
+            showSubTreeLeftRight(root.getRightNode(), height + 1, index);
+        }
+    }
+
+    private int getSpaces(int h) {
+        double total = Math.pow(2.0, h);
+        double spaces = 80.0 / total;
+        return (int) spaces;
+    }
+
 }
