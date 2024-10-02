@@ -41,7 +41,7 @@ public class EDTree<T> {
 
     public long getHeight() {
         int retValue = 0;
-        for (int i = 0; Math.pow(2.0, (double) i) < this.size; i++) {
+        for (int i = 0; Math.pow(2.0, (double) i) - 1 <= this.size; i++) {
             retValue = i;
         }
         return retValue + 1;
@@ -118,38 +118,39 @@ public class EDTree<T> {
         System.out.print("}");
     }
 
-    public void showLeftRight() {
-        TreeNode<T> aux = this.getRoot();
-        StringBuilder sb = new StringBuilder();
-        sb.repeat(' ', this.getSpaces(1));
-        System.out.print(sb.toString());
-        System.out.print(this.getRoot().getValue());
-        System.out.println("\n\n");
-        for (int i = 1; i < this.getHeight(); i++) {
-            showSubTreeLeftRight(root.getLeftNode(), i, 1);
-            showSubTreeLeftRight(root.getRightNode(), i, 1);
+    public void showVerticalOrder() {
+        int h = (int) this.getHeight();
+        System.out.println("\n");
+        for (int destLevel = 1; destLevel <= h; destLevel++) {
+            showSubTreeVerticalOrder(this.getRoot(), 1, destLevel);
+            System.out.println();
         }
     }
 
-    private void showSubTreeLeftRight(TreeNode<T> root, int height, int index) {
+    private void showSubTreeVerticalOrder(TreeNode<T> root, int level, int destLevel) {
         if (root == null) {
             return;
         }
-        if (height >= index) {
-            StringBuilder sb = new StringBuilder();
-            sb.repeat(' ', this.getSpaces(height));
-            System.out.print(sb.toString());
+        
+        long maxElements = (int) Math.pow(2,level);
+        long tab = Math.round(160 / maxElements);
+        
+
+        if (level == destLevel) {
+            int len = root.getValue().toString().length();
+            showSpaces(tab);
             System.out.print(root.getValue());
-        } else {
-            showSubTreeLeftRight(root.getLeftNode(), height + 1, index);
-            showSubTreeLeftRight(root.getRightNode(), height + 1, index);
+            showSpaces(tab - len);
+            return;
+        }
+
+        showSubTreeVerticalOrder(root.getLeftNode(), (level + 1), destLevel);
+        showSubTreeVerticalOrder(root.getRightNode(), (level + 1), destLevel);
+    }
+
+    private void showSpaces(long times) {
+        for (; times > 0; times--) {
+            System.out.print(" ");
         }
     }
-
-    private int getSpaces(int h) {
-        double total = Math.pow(2.0, h);
-        double spaces = 80.0 / total;
-        return (int) spaces;
-    }
-
 }

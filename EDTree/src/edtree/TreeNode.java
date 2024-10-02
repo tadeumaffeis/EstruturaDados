@@ -40,4 +40,9 @@ public class TreeNode<T> {
     public void setLeftNode(TreeNode leftNode) {
         this.leftNode = leftNode;
     }
+    
+    public String toString()
+    {
+        return this.getValue() + "";
+    }
 }
