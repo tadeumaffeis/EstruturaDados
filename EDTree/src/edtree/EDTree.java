@@ -7,6 +7,7 @@ package edtree;
 /**
  *
  * @author Tadeu Maffeis
+ * @param <T>
  */
 public class EDTree<T> {
 
@@ -45,6 +46,70 @@ public class EDTree<T> {
             retValue = i;
         }
         return retValue + 1;
+    }
+
+    public boolean searchBin(TreeNode<T> node) {
+        if (this.getRoot() == null) {
+            return false;
+        }
+
+        if (this.getRoot().getValue() == node.getValue()) {
+            return true;
+        }
+
+        if ((double) node.getValue() < (double) this.getRoot().getValue()) {
+            return deepSearchBin(this.getRoot().getLeftNode(), node);
+        } else {
+            return deepSearchBin(this.getRoot().getRightNode(), node);
+        }
+    }
+
+    private boolean deepSearchBin(TreeNode<T> root, TreeNode<T> node) {
+        if (root == null) {
+            return false;
+        }
+
+        if ((double)root.getValue() == (double)node.getValue()) {
+            return true;
+        }
+
+        if ((double) node.getValue() < (double) root.getValue()) {
+            return deepSearchBin(root.getLeftNode(), node);
+        } else {
+            return deepSearchBin(root.getRightNode(), node);
+        }
+    }
+
+    public void addOrder(TreeNode<T> node) {
+        if (this.getRoot() == null) {
+            this.setRoot(node);
+            return;
+        }
+
+        if ((double) node.getValue() <= (double) this.getRoot().getValue()) {
+            TreeNode<T> aux = addDeepOrder(this.getRoot().getLeftNode(), node);
+            this.getRoot().setLeftNode(aux);
+        } else {
+            TreeNode<T> aux = addDeepOrder(this.getRoot().getRightNode(), node);
+            this.getRoot().setRightNode(aux);
+        }
+
+    }
+
+    private TreeNode<T> addDeepOrder(TreeNode<T> root, TreeNode<T> node) {
+        if (root == null) {
+            return node;
+        }
+
+        if ((double) node.getValue() <= (double) root.getValue()) {
+            TreeNode<T> aux = addDeepOrder(root.getLeftNode(), node);
+            root.setLeftNode(aux);
+        } else {
+            TreeNode<T> aux = addDeepOrder(root.getRightNode(), node);
+            root.setRightNode(aux);
+        }
+
+        return root;
     }
 
     public void add(TreeNode<T> node) {
@@ -131,10 +196,9 @@ public class EDTree<T> {
         if (root == null) {
             return;
         }
-        
-        long maxElements = (int) Math.pow(2,level);
+
+        long maxElements = (int) Math.pow(2, level);
         long tab = Math.round(160 / maxElements);
-        
 
         if (level == destLevel) {
             int len = root.getValue().toString().length();

@@ -13,13 +13,15 @@ import javax.swing.JPanel;
 public class MainTree {
 
     public static void main(String[] args) {
-        EDTree<Integer> tree = new EDTree<>();
-        int[] values = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31};
+        EDTree<Double> tree = new EDTree<>();
+        //int[] values = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31};
+        
+        double[] values = {35,29,40,51,14,11,22,567,34, 37, 80,90,113};
 
-        for (int v : values) {
-            TreeNode<Integer> node = new TreeNode<>();
+        for (double v : values) {
+            TreeNode<Double> node = new TreeNode<>();
             node.setValue(v);
-            tree.add(node);
+            tree.addOrder(node);
         }
 
         System.out.println("Size: " + tree.getSize());
@@ -27,14 +29,24 @@ public class MainTree {
 
         tree.show();
         tree.showToString();
-        tree.showVerticalOrder();
 
+        tree.showVerticalOrder();
+        
         JFrame frame = new JFrame("Visualização da Árvore Binária");
         BinaryTreeCanvas canvas = new BinaryTreeCanvas(tree.getRoot());
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(800, 600);
         frame.add(canvas);
         frame.setVisible(true);
+        
+        TreeNode<Double> aux = new TreeNode();
+        aux.setValue(100.0);
+        System.out.println("Existe " + aux.toString() + ": " + tree.searchBin(aux));
+        aux.setValue(22.0);
+        System.out.println("Existe " + aux.toString() + ": " + tree.searchBin(aux));
+        
+        
+        
     }
 }
 
