@@ -3,6 +3,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package edbtree;
+
 /**
  *
  * @author Tadeu Maffeis
@@ -16,31 +17,34 @@ public class BTree<T> {
 
     private BTreeNode add(BTreeNode<T> root, BTreeNode<T> node) {
 
+        JFrameShowBTree.showTree(BinaryTreeCanvas.getInstance(this.getRootNode()), 1);
         if (root == null) {
             return node;
         } else {
 
             if ((node.getKey()).compareTo(root.getKey()) <= 0) {
                 root.setLeftNode(add(root.getLeftNode(), node));
+
             } else {
                 root.setRightNode(add(root.getRightNode(), node));
             }
         }
-        return balanceTree(root, node);
+        JFrameShowBTree.showTree(BinaryTreeCanvas.getInstance(this.getRootNode()), 1);
+        BTreeNode retNode = balanceTree(root, node);
+        return retNode;
     }
 
-    public BTreeNode<T> getRootNode()
-    {
+    public BTreeNode<T> getRootNode() {
         return rootNode;
     }
-    
+
     public BTreeNode<T> addNode(BTreeNode node) {
-        return (this.rootNode = add(this.rootNode, node));
+        this.rootNode = add(this.rootNode, node);
+        return (this.getRootNode());
     }
 
     private BTreeNode<T> balanceTree(BTreeNode root, BTreeNode node) {
-        if (root == null)
-        {
+        if (root == null) {
             return null;
         }
         // Verifica o desequilíbrio e realiza as rotações necessárias
@@ -101,43 +105,36 @@ public class BTree<T> {
     public void add(BTreeNode<T> node) {
         this.rootNode = this.addNode(node);
     }
-    
-    private BTreeNode<T> searchNode(BTreeNode<T> root, String key)
-    {
+
+    private BTreeNode<T> searchNode(BTreeNode<T> root, String key) {
         BTreeNode nodeRet;
-        
-        if (root == null)
-        {
+
+        if (root == null) {
             return null;
         }
-        if (key.equals(root.getKey()))
-        {
+        if (key.equals(root.getKey())) {
             return root;
         }
-        if (key.compareTo(root.getKey()) < 0)
-        {
+        if (key.compareTo(root.getKey()) < 0) {
             nodeRet = searchNode(root.getLeftNode(), key);
-        }
-        else
-        {
+        } else {
             nodeRet = searchNode(root.getRightNode(), key);
         }
-        
+
         return nodeRet;
     }
-    
-    public BTreeNode<T> search(String key)
-    {
+
+    public BTreeNode<T> search(String key) {
         return searchNode(this.rootNode, key);
     }
-    
+
     /**
      * Show
+     *
      * @param root
      * @param tabs
      */
-    
-        public void Show(BTreeNode<T> root, String tabs) {
+    public void Show(BTreeNode<T> root, String tabs) {
         StringBuilder ntabs = new StringBuilder();
         ntabs.append(tabs);
         ntabs.append("    ");
@@ -147,8 +144,8 @@ public class BTree<T> {
             Show(root.getRightNode(), ntabs.toString());
         }
     }
-    
-        public void showVerticalOrder() {
+
+    public void showVerticalOrder() {
         int h = (int) this.height(this.getRootNode());
         System.out.println("\n");
         for (int destLevel = 1; destLevel <= h; destLevel++) {

@@ -4,10 +4,6 @@
  */
 package edbtree;
 
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.swing.JFrame;
-
 /**
  *
  * @author Tadeu Maffeis
@@ -22,27 +18,11 @@ public class EDBtreeMain {
         int[] values = {10, 1, 44, 32, 45, 67, 8, 32, 12, 34, 12};
         BTree<Integer> tree = new BTree<>();
 
-        JFrame frame = new JFrame("Visualização da Árvore Binária");
-        BinaryTreeCanvas canvas = new BinaryTreeCanvas(tree.getRootNode());
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setSize(800, 600);
-        frame.add(canvas);
-        frame.setVisible(true);
-
         for (int v : values) {
-            tree.add(new BTreeNode(v + "", v));
-            frame.remove(canvas);
-            canvas = new BinaryTreeCanvas(tree.getRootNode());
-            frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-            frame.setSize(800, 600);
-            frame.add(canvas);
-            frame.setVisible(true);
-            try {
-                Thread.sleep(3000);
-            } catch (InterruptedException ex) {
-                Logger.getLogger(EDBtreeMain.class.getName()).log(Level.SEVERE, null, ex);
-            }
+            tree.add(new BTreeNode<Integer>(String.format("%015d", v), v));
         }
+
+        JFrameShowBTree.showTree(BinaryTreeCanvas.getInstance(tree.getRootNode()), 2);
 
     }
 
