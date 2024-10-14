@@ -3,6 +3,10 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package edbtree;
+
+import edfila.EDQueue;
+import edfila.Node;
+
 /**
  *
  * @author Tadeu Maffeis
@@ -19,7 +23,6 @@ public class BTree<T> {
         if (root == null) {
             return node;
         } else {
-
             if ((node.getKey()).compareTo(root.getKey()) <= 0) {
                 root.setLeftNode(add(root.getLeftNode(), node));
             } else {
@@ -101,6 +104,37 @@ public class BTree<T> {
     public void add(BTreeNode<T> node) {
         this.rootNode = this.addNode(node);
     }
+    
+    public T[] getArray()
+    {
+        edfila.EDQueue values = new EDQueue();
+        deepSearch(this.getRootNode(), values);
+        
+        int size = (int) Math.pow(2.0, this.height(this.getRootNode()));
+        T[] arrayValues = (T[]) new Object[size];
+        for (int i = 0;!values.empty(); i++)
+        {
+            arrayValues[i] = (T)values.dequeue().getValue();
+        }
+        return arrayValues;
+    }
+    
+    private void deepSearch(BTreeNode<T> root, edfila.EDQueue values)
+    {
+        if (root == null){
+            return;
+        }
+        // esquerda
+        deepSearch(root.getLeftNode(), values);
+        if (values != null)
+        {
+            // valor da raiz
+            values.add(new edfila.Node(root.getKey(), root.getInformation()));
+        }
+        // direita
+        deepSearch(root.getRightNode(), values);
+    }
+    
     
     private BTreeNode<T> searchNode(BTreeNode<T> root, String key)
     {

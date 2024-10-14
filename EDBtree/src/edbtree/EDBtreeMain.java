@@ -19,28 +19,35 @@ public class EDBtreeMain {
      */
     public static void main(String[] args) {
         // TODO code application logic here
-        int[] values = {10, 1, 44, 32, 45, 67, 8, 32, 12, 34, 12};
+        int[] values = {88, 10, 1, 3, 2, 44, 32, 45, 67, 32, 12, 1, 1, 56, 3234, 1234567}; //34,12,13,14};
         BTree<Integer> tree = new BTree<>();
 
-        JFrame frame = new JFrame("Visualização da Árvore Binária");
-        BinaryTreeCanvas canvas = new BinaryTreeCanvas(tree.getRootNode());
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setSize(800, 600);
-        frame.add(canvas);
-        frame.setVisible(true);
-
+        //JFrame frame = new JFrame("Visualização da Árvore Binária");
+        //BinaryTreeCanvas canvas = new BinaryTreeCanvas(tree.getRootNode());
+        //frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        //frame.setSize(800, 600);
+        //frame.add(canvas);
+        //frame.setVisible(true);
         for (int v : values) {
-            tree.add(new BTreeNode(v + "", v));
-            frame.remove(canvas);
-            canvas = new BinaryTreeCanvas(tree.getRootNode());
-            frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-            frame.setSize(800, 600);
-            frame.add(canvas);
-            frame.setVisible(true);
-            try {
-                Thread.sleep(3000);
-            } catch (InterruptedException ex) {
-                Logger.getLogger(EDBtreeMain.class.getName()).log(Level.SEVERE, null, ex);
+            tree.add(new BTreeNode(String.format("%010d", v), v));
+            //frame.remove(canvas);
+            //canvas = new BinaryTreeCanvas(tree.getRootNode());
+            //frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+            //frame.setSize(800, 600);
+            //frame.add(canvas);
+            //frame.setVisible(true);
+            //try {
+            //Thread.sleep(3000);
+            //} catch (InterruptedException ex) {
+            //Logger.getLogger(EDBtreeMain.class.getName()).log(Level.SEVERE, null, ex);
+            //}
+        }
+
+        Object[] array = tree.getArray();
+        int i = 0;
+        for (Object o : array) {
+            if (o != null) {
+                System.out.printf("\n[%d] = %d", i++, o);
             }
         }
 
