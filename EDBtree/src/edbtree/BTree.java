@@ -4,12 +4,9 @@
  */
 package edbtree;
 
-<<<<<<< HEAD
 import edfila.EDQueue;
 import edfila.Node;
 
-=======
->>>>>>> 794c22c46253f777278787f0bee0543234d99a90
 /**
  *
  * @author Tadeu Maffeis
@@ -110,45 +107,34 @@ public class BTree<T> {
     public void add(BTreeNode<T> node) {
         this.rootNode = this.addNode(node);
     }
-<<<<<<< HEAD
-    
-    public T[] getArray()
-    {
+
+    public T[] getArray() {
         edfila.EDQueue values = new EDQueue();
         deepSearch(this.getRootNode(), values);
-        
+
         int size = (int) Math.pow(2.0, this.height(this.getRootNode()));
         T[] arrayValues = (T[]) new Object[size];
-        for (int i = 0;!values.empty(); i++)
-        {
-            arrayValues[i] = (T)values.dequeue().getValue();
+        for (int i = 0; !values.empty(); i++) {
+            arrayValues[i] = (T) values.dequeue().getValue();
         }
         return arrayValues;
     }
-    
-    private void deepSearch(BTreeNode<T> root, edfila.EDQueue values)
-    {
-        if (root == null){
+
+    private void deepSearch(BTreeNode<T> root, edfila.EDQueue values) {
+        if (root == null) {
             return;
         }
         // esquerda
         deepSearch(root.getLeftNode(), values);
-        if (values != null)
-        {
+        if (values != null) {
             // valor da raiz
             values.add(new edfila.Node(root.getKey(), root.getInformation()));
         }
         // direita
         deepSearch(root.getRightNode(), values);
     }
-    
-    
-    private BTreeNode<T> searchNode(BTreeNode<T> root, String key)
-    {
-=======
 
     private BTreeNode<T> searchNode(BTreeNode<T> root, String key) {
->>>>>>> 794c22c46253f777278787f0bee0543234d99a90
         BTreeNode nodeRet;
 
         if (root == null) {
@@ -220,5 +206,90 @@ public class BTree<T> {
         for (; times > 0; times--) {
             System.out.print(" ");
         }
+    }
+
+    public BTreeNode<T> getMax(BTreeNode<T> root) {
+        if (root == null) {
+            return null;
+        }
+
+        if (root.getRightNode() == null) {
+            return root;
+        }
+
+        return getMax(root.getRightNode());
+    }
+
+    public BTreeNode<T> getMin(BTreeNode<T> root) {
+        if (root == null) {
+            return null;
+        }
+
+        if (root.getLeftNode() == null) {
+            return root;
+        }
+
+        return getMin(root.getLeftNode());
+    }
+    
+    private BTreeNode<T> getParentNode(BTreeNode<T> root, BTreeNode<T> node)
+    {
+        if (root == null)
+        {
+            return null;
+        }
+        
+        if (root.getLeftNode() == node || root.getRightNode() == node)
+        {
+            return root;
+        }
+        
+        BTreeNode<T> leftNode = this.getParentNode(root.getLeftNode(), node);
+        if (leftNode != null)
+        {
+            return leftNode;
+        }
+        
+        return this.getParentNode(root.getRightNode(), node);
+    }
+    
+    public BTreeNode<T> getParent(BTreeNode<T> node)
+    {
+        return getParentNode(this.getRootNode(), node);
+    }
+    
+    public BTreeNode<T> remove(String key)
+    {
+        BTreeNode<T> node = this.search(key); // buscar referencia
+        
+        if (node == null)
+        {
+            return null; // chave não existe
+        }
+        
+        BTreeNode<T> parentNode = this.getParent(node);
+        // parentNode == null => node é a raiz da árvore
+        
+        if (node.getLeftNode() == null && node.getRightNode() == null)
+        {
+            if (parentNode != null && parentNode.getLeftNode() == node)
+            {
+                parentNode.setLeftNode(null);
+            }
+            else 
+            {
+                if (parentNode != null)
+                {
+                    parentNode.setRightNode(null);
+                }
+            }
+            
+            return node;
+        }
+        
+        // continua aqui
+        
+        return null;
+        
     }
 }

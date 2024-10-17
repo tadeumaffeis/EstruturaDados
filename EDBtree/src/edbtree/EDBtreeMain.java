@@ -15,18 +15,17 @@ public class EDBtreeMain {
      */
     public static void main(String[] args) {
         // TODO code application logic here
-        int[] values = {88, 10, 1, 3, 2, 44, 32, 45, 67, 32, 12, 1, 1, 56, 3234, 1234567}; //34,12,13,14};
+        int[] values = {88, 10, 1, 3, 2, 44, 32, 45, 67, 32, 12, 1, 1, 56, 3234, 127}; //34,12,13,14};
         BTree<Integer> tree = new BTree<>();
 
-<<<<<<< HEAD
         //JFrame frame = new JFrame("Visualização da Árvore Binária");
         //BinaryTreeCanvas canvas = new BinaryTreeCanvas(tree.getRootNode());
         //frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         //frame.setSize(800, 600);
         //frame.add(canvas);
         //frame.setVisible(true);
-        for (int v : values) {
-            tree.add(new BTreeNode(String.format("%010d", v), v));
+        for (int i = 0; i < values.length; i++) {
+            tree.add(new BTreeNode(String.format("%010d", values[i]), values[i]));
             //frame.remove(canvas);
             //canvas = new BinaryTreeCanvas(tree.getRootNode());
             //frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -38,22 +37,29 @@ public class EDBtreeMain {
             //} catch (InterruptedException ex) {
             //Logger.getLogger(EDBtreeMain.class.getName()).log(Level.SEVERE, null, ex);
             //}
+
         }
 
+        /*
         Object[] array = tree.getArray();
         int i = 0;
         for (Object o : array) {
             if (o != null) {
                 System.out.printf("\n[%d] = %d", i++, o);
             }
-=======
-        for (int v : values) {
-            tree.add(new BTreeNode<Integer>(String.format("%015d", v), v));
->>>>>>> 794c22c46253f777278787f0bee0543234d99a90
+
+            for (int v : values) {
+                tree.add(new BTreeNode<Integer>(String.format("%015d", v), v));
+            }
+
+            //JFrameShowBTree.showTree(BinaryTreeCanvas.getInstance(tree.getRootNode()), 2);
+
         }
-
-        JFrameShowBTree.showTree(BinaryTreeCanvas.getInstance(tree.getRootNode()), 2);
-
+         */
+        //JFrameShowBTree.showTree(BinaryTreeCanvas.getInstance(tree.getRootNode()), 0);
+        System.out.println("Left Min: " + tree.getMin(tree.getRootNode().getLeftNode()).getInformation());
+        System.out.println("Left Max: " + tree.getMax(tree.getRootNode().getLeftNode()).getInformation());
+        System.out.println("Right Min: " + tree.getMin(tree.getRootNode().getRightNode()).getInformation());
+        System.out.println("Right Max: " + tree.getMax(tree.getRootNode().getRightNode()).getInformation());
     }
-
 }
