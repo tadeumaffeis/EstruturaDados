@@ -20,7 +20,7 @@ public class BTree<T> {
 
     private BTreeNode add(BTreeNode<T> root, BTreeNode<T> node) {
 
-        JFrameShowBTree.showTree(BinaryTreeCanvas.getInstance(this.getRootNode()), 1);
+        //JFrameShowBTree.showTree(BinaryTreeCanvas.getInstance(this.getRootNode()), 1);
         if (root == null) {
             return node;
         } else {
@@ -31,7 +31,7 @@ public class BTree<T> {
                 root.setRightNode(add(root.getRightNode(), node));
             }
         }
-        JFrameShowBTree.showTree(BinaryTreeCanvas.getInstance(this.getRootNode()), 1);
+        //JFrameShowBTree.showTree(BinaryTreeCanvas.getInstance(this.getRootNode()), 1);
         BTreeNode retNode = balanceTree(root, node);
         return retNode;
     }
@@ -231,65 +231,103 @@ public class BTree<T> {
 
         return getMin(root.getLeftNode());
     }
-    
-    private BTreeNode<T> getParentNode(BTreeNode<T> root, BTreeNode<T> node)
-    {
-        if (root == null)
-        {
+
+    private BTreeNode<T> getParentNode(BTreeNode<T> root, BTreeNode<T> node) {
+        if (root == null) {
             return null;
         }
-        
-        if (root.getLeftNode() == node || root.getRightNode() == node)
-        {
+
+        if (root.getLeftNode() == node || root.getRightNode() == node) {
             return root;
         }
-        
+
         BTreeNode<T> leftNode = this.getParentNode(root.getLeftNode(), node);
-        if (leftNode != null)
-        {
+        if (leftNode != null) {
             return leftNode;
         }
-        
+
         return this.getParentNode(root.getRightNode(), node);
     }
-    
-    public BTreeNode<T> getParent(BTreeNode<T> node)
-    {
+
+    public BTreeNode<T> getParent(BTreeNode<T> node) {
         return getParentNode(this.getRootNode(), node);
     }
-    
-    public BTreeNode<T> remove(String key)
-    {
+
+    public BTreeNode<T> remove(String key) {
         BTreeNode<T> node = this.search(key); // buscar referencia
-        
-        if (node == null)
-        {
+
+        if (node == null) {
             return null; // chave não existe
         }
-        
+
         BTreeNode<T> parentNode = this.getParent(node);
         // parentNode == null => node é a raiz da árvore
-        
-        if (node.getLeftNode() == null && node.getRightNode() == null)
-        {
-            if (parentNode != null && parentNode.getLeftNode() == node)
-            {
+
+        // nó folha
+        if (node.getLeftNode() == null && node.getRightNode() == null) {
+            if (parentNode != null && parentNode.getLeftNode() == node) {
                 parentNode.setLeftNode(null);
-            }
-            else 
-            {
-                if (parentNode != null)
-                {
+            } else {
+                if (parentNode != null) {
                     parentNode.setRightNode(null);
                 }
             }
-            
-            return node;
         }
-        
-        // continua aqui
-        
-        return null;
-        
+
+        balanceTree(parentNode, this.getMax(parentNode));
+
+        return node;
+
+    }
+
+    public BTreeNode<T> deleteNode(BTreeNode<T> root, String value) {
+        if (root == null) {
+            return root;
+        }
+        if (value.compareTo(root.getKey()) < 0) {
+            root.setLeftNode(deleteNode(root.getLeftNode(), value));
+        } else {
+            if (value.compareTo(root.getKey()) > 0) {
+                root.setRightNode(deleteNode(root.getRightNode(), value));
+            } else {
+                if (root.getLeftNode() == null) {
+                    BTreeNode temp = root.getRightNode();
+                    root = null;
+                    return temp != null ? balanceTree(temp, temp) : temp;
+                } else {
+                    if (root.getRightNode() == null) {
+                        BTreeNode temp = root.getLeftNode();
+                        root = null;
+                        return temp != null ? balanceTree(temp, temp) : temp;
+                    }
+                }
+                BTreeNode temp = this.getMin(root.getRightNode());
+                root.setKey(temp.getKey());
+                root.setRightNode(deleteNode(root.getRightNode(), temp.getKey()));
+            }
+        }
+
+        return root != null ? balanceTree(root, root) : root;
     }
 }
+
+/*
+else {
+
+            BTreeNode<T> leftMaxNode = this.getMax(node.getLeftNode());
+            BTreeNode<T> rightMinNode = this.getMin(node.getRightNode());
+
+            if (leftMaxNode != null) {
+                if (parentNode != null && parentNode.getLeftNode() == node) {
+                    parentNode.setLeftNode(leftMaxNode);
+                    leftMaxNode.setLeftNode(node.getLeftNode());
+                    leftMaxNode.setRightNode(node.getRightNode());
+                } else {
+                    if (parentNode != null) {
+                        parentNode.setRightNode(rightMinNode);
+                        rightMinNode.setLeftNode(node.getLeftNode());
+                        rightMinNode.setRightNode(node.getRightNode());
+                    }
+                }
+            }
+ */

@@ -24,13 +24,19 @@ public final class BinaryTreeCanvas extends JPanel {
     }
 
     public static BinaryTreeCanvas getInstance(BTreeNode root) {
+        if (instance == null) {
+            instance = new BinaryTreeCanvas(root);
+        }
+
+        return instance;
+    }
+
+    public static BinaryTreeCanvas getNewInstance(BTreeNode root) {
         instance = null;
         instance = new BinaryTreeCanvas(root);
 
         return instance;
     }
-
-
 
     // Método responsável por desenhar a árvore no Canvas
     @Override

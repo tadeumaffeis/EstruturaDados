@@ -61,5 +61,20 @@ public class EDBtreeMain {
         System.out.println("Left Max: " + tree.getMax(tree.getRootNode().getLeftNode()).getInformation());
         System.out.println("Right Min: " + tree.getMin(tree.getRootNode().getRightNode()).getInformation());
         System.out.println("Right Max: " + tree.getMax(tree.getRootNode().getRightNode()).getInformation());
+
+        JFrameShowBTree.showTree(BinaryTreeCanvas.getInstance(tree.getRootNode()), 1);
+
+        tree.Show(tree.getRootNode(), "   ");
+        //tree.remove("0000000003");
+        //tree.remove("0000000088");
+        
+        tree.deleteNode(tree.getRootNode(), "0000000003");
+        tree.deleteNode(tree.getRootNode(), "0000000032");
+        tree.deleteNode(tree.getRootNode(), "0000000010");
+        
+        System.out.println("-----");
+        tree.Show(tree.getRootNode(), "   ");
+        tree.showVerticalOrder();
+        JFrameShowBTree.showTree(BinaryTreeCanvas.getNewInstance(tree.getRootNode()), 1);
     }
 }

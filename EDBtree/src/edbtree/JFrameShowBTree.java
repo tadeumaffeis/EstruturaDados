@@ -16,6 +16,7 @@ public final class JFrameShowBTree {
     private static BinaryTreeCanvas activeCanvas = null;
 
     public static void showTree(BinaryTreeCanvas canvas, int timeout) {
+        
         try 
         {
             Thread.sleep(timeout * 1000);
