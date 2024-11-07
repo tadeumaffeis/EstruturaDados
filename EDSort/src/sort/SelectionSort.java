@@ -23,7 +23,7 @@ public class SelectionSort {
     public void sort() {
         long size = this.getSize();
         for (int x = 0; x < size - 1; x++) {
-            show();
+            //show();
             for (int y = x; y < size; y++) {
                 if (values[x] > values[y]) {
                     swap(x, y);

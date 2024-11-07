@@ -24,7 +24,7 @@ public class BubbleSort {
         long size = this.getSize();
         boolean changed = true;
         while (changed) {
-            show();
+            //show();
             changed = false;
             for (int indx = 0; indx < size - 1; indx++) {
                 if (values[indx] > values[indx+1])
