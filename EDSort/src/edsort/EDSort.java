@@ -8,6 +8,7 @@ import java.nio.channels.SelectableChannel;
 import java.util.Random;
 import java.util.Scanner;
 import sort.BubbleSort;
+import sort.HeapSort;
 import sort.InsertionSort;
 import sort.SelectionSort;
 
@@ -17,10 +18,10 @@ import sort.SelectionSort;
  */
 public class EDSort {
 
-    public final static int BUBBLESORT      = 1;
-    public final static int SELECTIONSORT   = 2;
-    public final static int INSERTIONSORT   = 3;
-
+    public final static int BUBBLESORT = 1;
+    public final static int SELECTIONSORT = 2;
+    public final static int INSERTIONSORT = 3;
+    public final static int HEAPSORT = 4;
 
     /**
      * @param args the command line arguments
@@ -34,7 +35,7 @@ public class EDSort {
         // TODO code application logic here
         int size = Integer.parseInt(args[0]);
         int alg = Integer.parseInt(args[1]);
-        
+
         Scanner in = new Scanner(System.in);
 
         long[] values = new long[size];
@@ -44,7 +45,7 @@ public class EDSort {
         }
 
         long st = System.nanoTime();
-        
+
         switch (alg) {
             case BUBBLESORT: {
                 BubbleSort sort = new BubbleSort(values);
@@ -61,12 +62,16 @@ public class EDSort {
                 sort.sort();
                 break;
             }
+            case HEAPSORT: {
+                HeapSort sort = new HeapSort(values);
+                sort.sort();
+                sort.show();
+                break;
+            }
         }
         long et = System.nanoTime();
 
         System.out.println("\n\nDuracao: " + ((et - st) / 1_000_000) + " milissegundos\n\n");
-        //for (int i = 0; i < v.length; i++) {
-        //    System.out.printf("%d -", v[i]);
-        //}
     }
+
 }

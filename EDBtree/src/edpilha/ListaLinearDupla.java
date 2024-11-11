@@ -173,15 +173,15 @@ public class ListaLinearDupla {
         return aux;
     }
 
-    public Object[] invArray() {
-        Object[] array = new Object[(int) this.size];
+    public Object[] invvaluesay() {
+        Object[] valuesay = new Object[(int) this.size];
         Node aux = this.bottom;
         for (int i = 0; aux != null; i++) {
-            array[i] = aux.getValue();
+            valuesay[i] = aux.getValue();
             aux = aux.getPrev();
         }
 
-        return array;
+        return valuesay;
     }
 
     public ListaLinearDupla sort(boolean criteria) {

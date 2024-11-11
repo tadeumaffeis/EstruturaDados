@@ -25,7 +25,7 @@ public class InsertionSort {
             long current = values[i];
             int j = i - 1;
 
-            // Move os elementos do array que são maiores que o valor atual
+            // Move os elementos do valuesay que são maiores que o valor atual
             // para uma posição à frente de sua posição atual
             while (j >= 0 && values[j] > current) {
                 values[j + 1] = values[j];

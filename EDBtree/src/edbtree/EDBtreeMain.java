@@ -41,9 +41,9 @@ public class EDBtreeMain {
         }
 
         /*
-        Object[] array = tree.getArray();
+        Object[] valuesay = tree.getvaluesay();
         int i = 0;
-        for (Object o : array) {
+        for (Object o : valuesay) {
             if (o != null) {
                 System.out.printf("\n[%d] = %d", i++, o);
             }

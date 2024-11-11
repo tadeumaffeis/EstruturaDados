@@ -108,16 +108,16 @@ public class BTree<T> {
         this.rootNode = this.addNode(node);
     }
 
-    public T[] getArray() {
+    public T[] getvaluesay() {
         edfila.EDQueue values = new EDQueue();
         deepSearch(this.getRootNode(), values);
 
         int size = (int) Math.pow(2.0, this.height(this.getRootNode()));
-        T[] arrayValues = (T[]) new Object[size];
+        T[] valuesayValues = (T[]) new Object[size];
         for (int i = 0; !values.empty(); i++) {
-            arrayValues[i] = (T) values.dequeue().getValue();
+            valuesayValues[i] = (T) values.dequeue().getValue();
         }
-        return arrayValues;
+        return valuesayValues;
     }
 
     private void deepSearch(BTreeNode<T> root, edfila.EDQueue values) {
