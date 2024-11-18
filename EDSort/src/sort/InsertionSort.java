@@ -4,6 +4,8 @@
  */
 package sort;
 
+import edsort.EDSort;
+
 /**
  *
  * @author tadeu.maffeis
@@ -32,7 +34,7 @@ public class InsertionSort {
                 j--;
             }
             values[j + 1] = current;
-        }   
+        }
     }
 
     private void swap(int indx, int i) {
@@ -42,6 +44,9 @@ public class InsertionSort {
     }
 
     public void show() {
+        if (EDSort.DEBUG) {
+            return;
+        }
         long size = this.getSize();
         for (int i = 0; i < size; i++) {
             System.out.printf("\n%d  ", values[i]);

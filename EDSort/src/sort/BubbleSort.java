@@ -4,6 +4,8 @@
  */
 package sort;
 
+import edsort.EDSort;
+
 /**
  *
  * @author tadeu.maffeis
@@ -27,9 +29,8 @@ public class BubbleSort {
             //show();
             changed = false;
             for (int indx = 0; indx < size - 1; indx++) {
-                if (values[indx] > values[indx+1])
-                {
-                    swap(indx, indx+1);
+                if (values[indx] > values[indx + 1]) {
+                    swap(indx, indx + 1);
                     changed = true;
                 }
             }
@@ -41,12 +42,13 @@ public class BubbleSort {
         values[indx] = values[i];
         values[i] = aux;
     }
-        
-    public void show()
-    {
+
+    public void show() {
+        if (EDSort.DEBUG) {
+            return;
+        }
         long size = this.getSize();
-        for (int i=0; i < size; i++)
-        {
+        for (int i = 0; i < size; i++) {
             System.out.printf("%d  ", values[i]);
         }
         System.out.println();

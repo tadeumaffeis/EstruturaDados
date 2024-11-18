@@ -4,13 +4,12 @@
  */
 package edsort;
 
-import java.nio.channels.SelectableChannel;
-import java.util.Random;
 import java.util.Scanner;
 import sort.BubbleSort;
 import sort.HeapSort;
 import sort.InsertionSort;
 import sort.SelectionSort;
+import sort.QuickSort;
 
 /**
  *
@@ -22,6 +21,8 @@ public class EDSort {
     public final static int SELECTIONSORT = 2;
     public final static int INSERTIONSORT = 3;
     public final static int HEAPSORT = 4;
+    public final static int QUICKSORT = 5;
+    public final static boolean DEBUG = true;
 
     /**
      * @param args the command line arguments
@@ -47,26 +48,31 @@ public class EDSort {
         long st = System.nanoTime();
 
         switch (alg) {
-            case BUBBLESORT: {
+            case BUBBLESORT ->  {
                 BubbleSort sort = new BubbleSort(values);
                 sort.sort();
-                break;
             }
-            case SELECTIONSORT: {
+            
+            case SELECTIONSORT ->  {
                 SelectionSort sort = new SelectionSort(values);
                 sort.sort();
-                break;
             }
-            case INSERTIONSORT: {
+            
+            case INSERTIONSORT ->  {
                 InsertionSort sort = new InsertionSort(values);
                 sort.sort();
-                break;
             }
-            case HEAPSORT: {
+            
+            case HEAPSORT ->  {
                 HeapSort sort = new HeapSort(values);
                 sort.sort();
                 sort.show();
-                break;
+            }
+            
+            case QUICKSORT ->  {
+                QuickSort sort = new QuickSort(values);
+                sort.sort();
+                sort.show();
             }
         }
         long et = System.nanoTime();
