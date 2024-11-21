@@ -23,8 +23,8 @@ public class QuickSort {
     }
 
     private void sort(long began, long end) {
-        int i, j, pivo, aux;
-        int indxPivo = 0;
+        int i, j, pivo, aux, indxPivo;
+        
         i = (int) began;
         j = (int) end - 1;
 
@@ -44,6 +44,7 @@ public class QuickSort {
                 j--;
             }
         }
+        
         if (j > began) {
             sort(began, j + 1);
         }
@@ -53,7 +54,7 @@ public class QuickSort {
     }
 
     public void sort() {
-        this.sort(0, (int) this.getSize() - 1);
+        this.sort(0, (int) this.getSize());
     }
 
     private void swap(int indx, int i) {

@@ -41,7 +41,7 @@ public class EDSort {
 
         //Scanner in = new Scanner(System.in);
 
-        Scanner in = new Scanner(new File("C:\\temp\\n10000000.txt"));
+        Scanner in = new Scanner(new File("C:\\temp\\n1000000000.txt"));
         
         long[] values = new long[size];
 
