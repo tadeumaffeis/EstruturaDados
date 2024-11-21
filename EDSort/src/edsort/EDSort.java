@@ -4,6 +4,8 @@
  */
 package edsort;
 
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.util.Scanner;
 import sort.BubbleSort;
 import sort.HeapSort;
@@ -27,7 +29,7 @@ public class EDSort {
     /**
      * @param args the command line arguments
      */
-    public static void main(String[] args) {
+    public static void main(String[] args) throws FileNotFoundException {
 
         if (args.length < 2) {
             System.err.println("\nQuantidade de parametros incorreta!");
@@ -37,8 +39,10 @@ public class EDSort {
         int size = Integer.parseInt(args[0]);
         int alg = Integer.parseInt(args[1]);
 
-        Scanner in = new Scanner(System.in);
+        //Scanner in = new Scanner(System.in);
 
+        Scanner in = new Scanner(new File("C:\\temp\\n10000000.txt"));
+        
         long[] values = new long[size];
 
         for (int i = 0; i < size; i++) {

@@ -22,42 +22,38 @@ public class QuickSort {
         return values.length;
     }
 
-    private void sort(int low, int high) {
-        if (low < high) {
-            // Particiona o array e obtém o índice do pivô
-            int pivotIndex = (int) partition(low, high);
+    private void sort(long began, long end) {
+        int i, j, pivo, aux;
+        int indxPivo = 0;
+        i = (int) began;
+        j = (int) end - 1;
 
-            // Ordena as duas subpartes recursivamente
-            sort(low, pivotIndex - 1);
-            sort(pivotIndex + 1, high);
+        indxPivo = (int) ((began + end) / 2);
+        pivo = (int) this.values[indxPivo];
+
+        while (i <= j) {
+            while (values[i] < pivo && i < end) {
+                i++;
+            }
+            while (values[j] > pivo && j > began) {
+                j--;
+            }
+            if (i <= j) {
+                this.swap(i, j);
+                i++;
+                j--;
+            }
+        }
+        if (j > began) {
+            sort(began, j + 1);
+        }
+        if (i < end) {
+            sort(i, end);
         }
     }
 
     public void sort() {
         this.sort(0, (int) this.getSize() - 1);
-    }
-
-    private long partition(int low, int high) {
-        long pivot = this.values[high];
-        int i = (low - 1); // Índice do menor elemento
-
-        for (int j = low; j < high; j++) {
-            // Se o elemento atual é menor ou igual ao pivô
-            if (this.values[j] <= pivot) {
-                i++;
-                // Troca arr[i] e arr[j]
-                long temp = this.values[i];
-                this.values[i] = this.values[j];
-                this.values[j] = temp;
-            }
-        }
-
-        // Troca arr[i + 1] e arr[high] (ou o pivô)
-        long temp = this.values[i + 1];
-        this.values[i + 1] = this.values[high];
-        this.values[high] = temp;
-
-        return i + 1;
     }
 
     private void swap(int indx, int i) {
@@ -67,8 +63,9 @@ public class QuickSort {
     }
 
     public void show() {
-        if (EDSort.DEBUG)
+        if (EDSort.DEBUG) {
             return;
+        }
         long size = this.getSize();
         for (int i = 0; i < size; i++) {
             System.out.printf("%d  ", values[i]);
